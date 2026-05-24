@@ -256,3 +256,8 @@ function calculateTax(amount, taxRate) {
   if (amount < 0) return 0;
   return amount + (amount * taxRate);
 }
+
+function calculateDiscount(price, discount) {
+  // Testing the Render Webhook!
+  return price - (price * discount);
+}
