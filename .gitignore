@@ -1,0 +1,5 @@
+node_modules/
+.env
+docs_generator.db
+docs_generator.db-journal
+.DS_Store
