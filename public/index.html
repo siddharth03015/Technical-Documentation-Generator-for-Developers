@@ -1499,11 +1499,48 @@
         </div>
       </div>
 
-      <!-- Main Split Grid -->
-      <div class="split-grid">
-        
-        <!-- Left: Code Catalog Panel -->
-        <div class="panel-card">
+      <!-- Main Doc Viewer -->
+      <div class="panel-card doc-viewer-card" style="margin-top: 16px;">
+            <div class="panel-card-header">
+              <h2 class="panel-card-title" id="docTitle">Documentation Editor</h2>
+              <div style="display:flex; align-items:center; gap:16px;">
+                <div class="zoom-controls" style="display:flex; align-items:center; gap:2px; background: rgba(0,0,0,0.1); padding:3px; border-radius:6px; border: 1px solid var(--border-color);">
+                  <div class="zoom-btn" onclick="zoomDoc(-1)" title="Zoom Out">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                  </div>
+                  <div class="zoom-btn" onclick="toggleEnlarge()" title="Toggle Enlarge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+                  </div>
+                  <div class="zoom-btn" onclick="zoomDoc(1)" title="Zoom In">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                  </div>
+                </div>
+                <div class="doc-actions" id="docActions" style="display:flex; gap:8px;">
+                  <!-- Action Buttons Rendered Dynamically -->
+                </div>
+              </div>
+            </div>
+            <div class="doc-body-split">
+              <div class="doc-sidebar">
+                <div style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 8px;">Workspace</div>
+                <div id="docTree" style="display:flex; flex-direction:column; gap:4px; overflow-y:auto; flex:1;">
+                  <!-- Dynamic Tree Placeholder -->
+                </div>
+              </div>
+              <div class="doc-content-area" id="docBody">
+                <div class="empty-state">
+                  <img src="empty_state.png" style="width: 150px; margin-bottom: 16px; opacity: 0.9;" alt="Empty State" />
+                  <span style="font-weight:600; color:#fff;">No item selected</span>
+                  <span style="font-size:12px; color:var(--text-secondary); max-width:280px;">Select a code item from the catalog on the left to view, edit, or generate its technical documentation.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div> <!-- End TAB: OVERVIEW -->
+
+      <!-- TAB: CODE CATALOG -->
+      <div id="view-catalog" class="tab-pane">
+        <div class="panel-card" style="min-height: 80vh;">
           <div class="panel-card-header">
             <div>
               <h2 class="panel-card-title">Code Catalog</h2>
@@ -1553,51 +1590,35 @@
             </div>
           </div>
         </div>
+      </div> <!-- End TAB: CODE CATALOG -->
 
-        <!-- Right Stack: Documentation Editor + Watcher/Activity -->
-        <div class="right-stack">
-          
-          <!-- Doc Viewer Card -->
-          <div class="panel-card doc-viewer-card">
-            <div class="panel-card-header">
-              <h2 class="panel-card-title" id="docTitle">Documentation Editor</h2>
-              <div style="display:flex; align-items:center; gap:16px;">
-                <div class="zoom-controls" style="display:flex; align-items:center; gap:2px; background: rgba(0,0,0,0.1); padding:3px; border-radius:6px; border: 1px solid var(--border-color);">
-                  <div class="zoom-btn" onclick="zoomDoc(-1)" title="Zoom Out">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                  </div>
-                  <div class="zoom-btn" onclick="toggleEnlarge()" title="Toggle Enlarge">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
-                  </div>
-                  <div class="zoom-btn" onclick="zoomDoc(1)" title="Zoom In">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                  </div>
-                </div>
-                <div class="doc-actions" id="docActions" style="display:flex; gap:8px;">
-                  <!-- Action Buttons Rendered Dynamically -->
-                </div>
-              </div>
-            </div>
-            <div class="doc-body-split">
-              <div class="doc-sidebar">
-                <div style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 8px;">Workspace</div>
-                <div id="docTree" style="display:flex; flex-direction:column; gap:4px; overflow-y:auto; flex:1;">
-                  <!-- Dynamic Tree Placeholder -->
-                </div>
-              </div>
-              <div class="doc-content-area" id="docBody">
-                <div class="empty-state">
-                  <img src="empty_state.png" style="width: 150px; margin-bottom: 16px; opacity: 0.9;" alt="Empty State" />
-                  <span style="font-weight:600; color:#fff;">No item selected</span>
-                  <span style="font-size:12px; color:var(--text-secondary); max-width:280px;">Select a code item from the catalog on the left to view, edit, or generate its technical documentation.</span>
-                </div>
-              </div>
+      <!-- TAB: REPORTS -->
+      <div id="view-reports" class="tab-pane">
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-info">
+              <span class="metric-label">Documentation Coverage</span>
+              <span class="metric-value">91%</span>
             </div>
           </div>
+          <div class="metric-card">
+            <div class="metric-info">
+              <span class="metric-label">Total Missing Fields</span>
+              <span class="metric-value">12</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-card" style="min-height: 60vh;">
+          <div class="panel-card-header"><h2 class="panel-card-title">Quality Assurance Reports</h2></div>
+          <div class="doc-body" id="reportsBody" style="display:flex; flex-direction:column; padding: 24px; overflow-y:auto; flex:1;">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </div> <!-- End TAB: REPORTS -->
 
-          <!-- Bottom Console Grid hidden from Overview -->
-          <div class="bottom-grids" style="display:none;">
-            
+      <!-- TAB: ACTIVITY LOG -->
+      <div id="view-activity" class="tab-pane">
+        <div class="bottom-grids" style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px; min-height: 70vh;">
             <!-- Live Directory Watcher -->
             <div class="panel-card">
               <div class="panel-card-header">
@@ -1647,72 +1668,6 @@
                 <span style="font-weight:700;">→</span>
               </a>
             </div>
-            
-          </div>
-
-        </div>
-
-      </div>
-      </div> <!-- End TAB: OVERVIEW -->
-
-      <!-- TAB: CODE CATALOG -->
-      <div id="view-catalog" class="tab-pane">
-        <div class="panel-card" style="min-height: 80vh;">
-          <div class="panel-card-header">
-            <h2 class="panel-card-title">Full Code Catalog</h2>
-            <span class="panel-card-sub" id="catalogItemCount">0 of 0 shown</span>
-          </div>
-          <div class="doc-body" style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1;">
-            <div class="empty-state">
-              <span class="empty-icon">📂</span>
-              <span style="font-weight:600;">Code Catalog</span>
-              <span style="font-size:12px; color:var(--text-secondary);">Currently utilizing the dual-pane view in Overview. (Standalone view architecture in progress)</span>
-              <button class="btn btn-primary" onclick="navTo('overview', document.querySelectorAll('.nav-item')[0])">Return to Overview</button>
-            </div>
-          </div>
-        </div>
-      </div> <!-- End TAB: CODE CATALOG -->
-
-      <!-- TAB: REPORTS -->
-      <div id="view-reports" class="tab-pane">
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-info">
-              <span class="metric-label">Documentation Coverage</span>
-              <span class="metric-value">91%</span>
-            </div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-info">
-              <span class="metric-label">Total Missing Fields</span>
-              <span class="metric-value">12</span>
-            </div>
-          </div>
-        </div>
-        <div class="panel-card" style="min-height: 60vh;">
-          <div class="panel-card-header"><h2 class="panel-card-title">Quality Assurance Reports</h2></div>
-          <div class="doc-body" style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1;">
-             <div class="empty-state">
-              <span class="empty-icon">📊</span>
-              <span style="font-weight:600;">Advanced Reports</span>
-              <span style="font-size:12px; color:var(--text-secondary);">Interactive quality charts and file breakdown coming soon.</span>
-            </div>
-          </div>
-        </div>
-      </div> <!-- End TAB: REPORTS -->
-
-      <!-- TAB: ACTIVITY LOG -->
-      <div id="view-activity" class="tab-pane">
-        <!-- Re-use the console panels here by moving them visually or showing/hiding. Since we hid them in overview, let's just make sure we unhide them here or duplicate them. For simplicity, we can move the IDs here later, or just recreate them. For now, since the IDs are bound, let's just tell the user we moved them. -->
-        <div class="panel-card" style="min-height: 80vh;">
-          <div class="panel-card-header"><h2 class="panel-card-title">System Event History</h2></div>
-          <div class="doc-body" style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1;">
-            <div class="empty-state">
-              <span class="empty-icon">⏱</span>
-              <span style="font-weight:600;">Full Activity Log</span>
-              <span style="font-size:12px; color:var(--text-secondary);">The console panels are hidden in overview and should be placed here. (WIP)</span>
-            </div>
-          </div>
         </div>
       </div> <!-- End TAB: ACTIVITY LOG -->
 
@@ -1746,20 +1701,52 @@
       <!-- TAB: INTEGRATIONS -->
       <div id="view-integrations" class="tab-pane">
         <div class="panel-card" style="max-width: 800px; margin: 0 auto; width: 100%;">
-          <div class="panel-card-header"><h2 class="panel-card-title">Connected Integrations</h2></div>
-          <div class="doc-body" style="display:flex; flex-direction:column; gap: 20px;">
-            
-            <div style="display:flex; align-items:center; justify-content:space-between; padding: 20px; border: 1px solid var(--border-color); border-radius: 8px; background: rgba(0,0,0,0.1);">
-              <div style="display:flex; align-items:center; gap: 16px;">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                <div>
-                  <h3 style="margin-bottom: 4px; font-weight: 600;">GitHub Webhooks</h3>
-                  <div style="color: var(--text-secondary); font-size: 11px;">Automatically generate docs for PRs.</div>
+          <div class="panel-card-header">
+            <div>
+              <h2 class="panel-card-title">Codebase Integrations</h2>
+              <span class="panel-card-sub">Connect your repositories to automatically generate docs from PRs and Pushes.</span>
+            </div>
+          </div>
+          <div class="doc-body" style="display:flex; flex-direction:column; gap: 24px;">
+            <div style="border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden;">
+              <div style="display:flex; align-items:center; justify-content:space-between; padding: 20px; background: rgba(0,0,0,0.1); border-bottom: 1px solid var(--border-color);">
+                <div style="display:flex; align-items:center; gap: 16px;">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  <div>
+                    <h3 style="margin-bottom: 4px; font-weight: 600;">GitHub Webhooks</h3>
+                    <div style="color: var(--text-secondary); font-size: 13px;">Automatically update docs when code is merged or pushed.</div>
+                  </div>
+                </div>
+                <span class="status-pulse offline" style="margin-right:8px;" title="Waiting for webhook events"></span>
+              </div>
+              
+              <div style="padding: 24px; display:flex; flex-direction:column; gap: 16px;">
+                <p style="font-size:13.5px; color:var(--text-secondary); line-height:1.5;">
+                  To fulfill the requirement of automatically updating technical documentation from PRs and deployments, NextDoc runs a background webhook listener. Configure your GitHub repository to send events to this agent.
+                </p>
+                
+                <div style="background:var(--bg-input); padding: 16px; border-radius: 6px; border: 1px solid var(--border-color);">
+                  <div style="font-weight:600; font-size:12px; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;">Connection Instructions</div>
+                  
+                  <ol style="margin-left: 20px; font-size:13.5px; color:var(--text-primary); display:flex; flex-direction:column; gap:10px;">
+                    <li>Go to your GitHub Repository Settings <strong>> Webhooks > Add webhook</strong>.</li>
+                    <li>Set the <strong>Payload URL</strong> to your publicly accessible server (e.g. ngrok):<br>
+                      <code style="display:block; padding:8px; margin-top:6px; background:rgba(0,0,0,0.2); border-radius:4px; font-family:var(--font-mono); color:var(--color-primary);">http://&lt;your-server-ip&gt;:3000/webhook/github</code>
+                    </li>
+                    <li>Set the <strong>Content type</strong> to <code>application/json</code>.</li>
+                    <li>Enter your configured <strong>Secret</strong> (must match your <code>.env</code> file):<br>
+                      <input type="password" value="your-secret-here" readonly style="margin-top:6px; background:rgba(0,0,0,0.2); border:1px solid var(--border-color); color:var(--text-secondary); padding:4px 8px; border-radius:4px; width:200px;" />
+                    </li>
+                    <li>Select <strong>Let me select individual events</strong> and check <strong>Pull requests</strong> and <strong>Pushes</strong>.</li>
+                  </ol>
+                </div>
+                
+                <div style="font-size:12.5px; color:var(--text-muted); display:flex; gap:8px; align-items:flex-start; margin-top: 8px;">
+                  <span style="color:var(--color-warning);">⚠</span>
+                  <span>Once connected, the AI Agent will parse PR diffs, detect missing documentation, and automatically open new Pull Requests with the generated Markdown docs!</span>
                 </div>
               </div>
-              <button class="btn btn-sm btn-primary">Connect</button>
             </div>
-
             <div style="display:flex; align-items:center; justify-content:space-between; padding: 20px; border: 1px solid var(--border-color); border-radius: 8px; background: rgba(0,0,0,0.1);">
               <div style="display:flex; align-items:center; gap: 16px;">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
@@ -1977,6 +1964,7 @@
         $statusDot.className = 'status-pulse';
         onFilterChange();
         renderDocTree();
+        renderReports();
       } catch (e) {
         $statusDot.className = 'status-pulse offline';
       }
@@ -2141,6 +2129,38 @@
     function changePage(page) {
       currentPage = page;
       renderTable();
+    }
+
+    // Render Reports Tab
+    function renderReports() {
+      var reportsBody = document.getElementById('reportsBody');
+      if (!reportsBody) return;
+      
+      var missingItems = items.filter(function(i) {
+        return i.documentation && Array.isArray(i.documentation.missing_fields) && i.documentation.missing_fields.length > 0;
+      });
+      
+      var html = '<h3 style="font-size:14px; font-weight:600; margin-bottom:16px;">Items Requiring Review</h3>';
+      
+      if (missingItems.length === 0) {
+        html += '<div class="empty-state"><span class="empty-icon">✅</span><span style="font-weight:600;">All documentation is complete!</span><span style="font-size:12px; color:var(--text-secondary);">No missing fields detected.</span></div>';
+      } else {
+        html += '<table style="width:100%; border-collapse: collapse; text-align:left; font-size:13px;">' +
+               '<thead><tr><th style="padding:10px 8px; border-bottom:1px solid rgba(255,255,255,0.1); color:var(--text-muted); font-weight:500;">Function / Class</th><th style="padding:10px 8px; border-bottom:1px solid rgba(255,255,255,0.1); color:var(--text-muted); font-weight:500;">Missing Fields</th></tr></thead><tbody>';
+        missingItems.forEach(function(item) {
+          var fields = item.documentation.missing_fields.map(function(f){
+            return '<span style="background:rgba(239, 68, 68, 0.15); color:#fca5a5; padding:2px 6px; border-radius:4px; font-size:11px; margin-right:4px;">' + f + '</span>';
+          }).join('');
+          
+          html += '<tr>' +
+                  '<td style="padding:12px 8px; border-bottom:1px solid rgba(255,255,255,0.05); color:var(--text-primary);">' + item.name + ' <span style="color:var(--text-muted); font-size:11px; margin-left:8px;">' + (item.file_path.split(/[/\\]/).pop() || '') + '</span></td>' +
+                  '<td style="padding:12px 8px; border-bottom:1px solid rgba(255,255,255,0.05);">' + fields + '</td>' +
+                  '</tr>';
+        });
+        html += '</tbody></table>';
+      }
+      
+      reportsBody.innerHTML = html;
     }
 
     // Render File Tree
