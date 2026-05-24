@@ -18,9 +18,9 @@ function getClient() {
   return _client;
 }
 
-// Use the heavy model for generation/updating, lighter model for scoring
-const MODEL_HEAVY = 'llama-3.3-70b-versatile';  // generate + update
-const MODEL_LIGHT = 'llama-3.1-8b-instant';       // score (JSON only, faster)
+// Use the lighter model for everything to bypass Groq free-tier rate limits!
+const MODEL_HEAVY = 'llama-3.1-8b-instant';  // generate + update
+const MODEL_LIGHT = 'llama-3.1-8b-instant';  // score (JSON only, faster)
 const MAX_TOKENS = 4096;
 
 // ---------------------------------------------------------------------------
