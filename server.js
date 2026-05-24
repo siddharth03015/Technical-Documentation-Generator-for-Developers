@@ -82,12 +82,17 @@ function verifyGitHubSignature(req) {
 }
 
 app.post('/webhook/github', async (req, res) => {
+  const event = req.headers['x-github-event'];
+  console.log(`\n[WEBHOOK] Received '${event}' event from GitHub!`);
+
   // 1. Validate signature
   if (!verifyGitHubSignature(req)) {
+    console.error(`[WEBHOOK ERROR] Signature validation failed! Check your GITHUB_WEBHOOK_SECRET.`);
     return res.status(401).json({ error: 'Invalid signature' });
   }
+  
+  console.log(`[WEBHOOK] Signature validated successfully.`);
 
-  const event = req.headers['x-github-event'];
   const payload = req.body;
 
   try {
