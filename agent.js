@@ -37,8 +37,8 @@ async function callGroq(systemPrompt, userPrompt, model = MODEL_HEAVY, maxTokens
     ],
   };
 
-  // Retry up to 3 times on rate-limit, network, or server errors
-  for (let attempt = 1; attempt <= 3; attempt++) {
+  // Retry up to 5 times on rate-limit, network, or server errors
+  for (let attempt = 1; attempt <= 5; attempt++) {
     try {
       const response = await getClient().chat.completions.create(params);
       return response.choices[0]?.message?.content ?? '';
@@ -46,11 +46,19 @@ async function callGroq(systemPrompt, userPrompt, model = MODEL_HEAVY, maxTokens
       const isRateLimit = err.status === 429;
       const isTransient = !err.status || err.status >= 500; // Network error or server error
       
-      if ((isRateLimit || isTransient) && attempt < 3) {
-        const waitMs = isRateLimit 
-          ? ((err.headers?.['retry-after'] ?? 10)) * 1000
-          : 5000; // Default to 5s on connection/server error
-        console.warn(`callGroq: ${isRateLimit ? 'rate limited' : 'connection/server error'}. Retrying in ${waitMs}ms (attempt ${attempt}/3)...`);
+      if ((isRateLimit || isTransient) && attempt < 5) {
+        let waitMs = 5000;
+        if (isRateLimit) {
+          const match = err.message && err.message.match(/try again in ([0-9.]+)s/i);
+          if (match) {
+            waitMs = (parseFloat(match[1]) + 2) * 1000; // Add 2 seconds buffer
+          } else {
+            waitMs = (err.headers?.['retry-after'] || 10) * 1000 * attempt;
+          }
+        } else {
+          waitMs = 5000 * attempt;
+        }
+        console.warn(`callGroq: ${isRateLimit ? 'rate limited' : 'connection/server error'}. Retrying in ${waitMs}ms (attempt ${attempt}/5)...`);
         await new Promise((r) => setTimeout(r, waitMs));
       } else {
         throw err;
